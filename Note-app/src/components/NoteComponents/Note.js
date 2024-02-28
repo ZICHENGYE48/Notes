@@ -1,4 +1,5 @@
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
+
 const Note = ({ note, deleteNote }) => (
   <div className='note'>
     <div className='note__body'>{note.text}</div>

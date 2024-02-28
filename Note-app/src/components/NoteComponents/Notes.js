@@ -9,9 +9,12 @@ const Notes = () => {
   const [notes, setNotes] = useState([]);
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(true);
+  const [charLeft, setCharLeft] = useState(100)
 
   const textHandler = (e) => {
     setInputText(e.target.value);
+    const charLimit = 100;
+    setCharLeft(charLimit - e.target.value.length)
   };
 
   const saveHandler = () => {
@@ -38,7 +41,6 @@ const Notes = () => {
   };
   useEffect(() => {
     setLoading(true);
-    // const data = JSON.parse(localStorage.getItem('Notes'));
     fetch(`${BASE_URL}/notes`)
       .then((res) => res.json())
       .then((data) => {
@@ -49,11 +51,6 @@ const Notes = () => {
       });
   }, []);
 
-  //   useEffect(() => {
-  //     if (!loading) {
-  //       localStorage.setItem('Notes', JSON.stringify(notes));
-  //     }
-  //   }, [notes, loading]);
   return (
     <div className='notes'>
       {notes.map((note) => (
@@ -64,6 +61,7 @@ const Notes = () => {
         textHandler={textHandler}
         saveHandler={saveHandler}
         inputText={inputText}
+        charLeft={charLeft}
       />
     </div>
   );
